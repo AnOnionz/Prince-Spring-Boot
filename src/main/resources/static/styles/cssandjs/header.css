@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+@import url("//unpkg.com/element-ui@2.12.0/lib/theme-chalk/index.css");
+
+.navbar-inner {
+	height: fit-content;
+}
+
+.dropdown>.dropdown-menu {
+	top: 170%;
+	font-size: 1.5rem;
+	transition: 0.3s all ease-in-out;
+	right: -180%;
+	left: auto;
+	border-radius: .5rem;
+	padding: 1rem 1rem;
+}
+
+.dropdown-item {
+	padding: .5rem 1.5rem;
+}
+
+.dropdown:hover>.dropdown-menu {
+	display: block;
+	top: 90%;
+}
+
+.dropdown {
+	cursor: pointer;
+}
+
+.dropdown>.dropdown-toggle:active {
+	/*Without this, clicking will make it sticky*/
+	pointer-events: none;
+}
+
+::-webkit-scrollbar {
+	width: 0px; /* Remove scrollbar space */
+	background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+	background: #FF0000;
+}

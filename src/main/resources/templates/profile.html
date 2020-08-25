@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<!-- Page Title
+    ======================================== -->
+<title>Thông tin cá nhân</title>
+<link rel="icon" type="image/png" sizes="96x96"
+	th:href="@{/images/favicon-96x96.png}">
+<link rel="manifest" th:href="@{/images/manifest.json}">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	th:content="@{/images/ms-icon-144x144.png}">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script th:src="@{/js/cssandjs/jquery-3.4.1.min.js}"></script>
+<link rel="stylesheet" type="text/css"
+	href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+	rel="stylesheet" type="text/css" />
+<link rel="stylesheet" th:href="@{/styles/cssandjs/iconfont.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/header.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/animate.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/style.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/bootstrap.min.css}">
+<style>
+#history {
+	text-align: center;
+}
+
+img {
+	max-width: 180px;
+}
+
+input[type=file] {
+	visibility: hidden;
+	padding: 10px;
+}
+
+* {
+	border: 0;
+	outline: 0;
+}
+
+label#largeFile:after {
+	position: absolute;
+	width: 60%;
+	max-width: 800px;
+	content: "Chọn ảnh đại điện";
+	left: 0;
+	right: 0;
+	margin: 50px auto;
+	text-align: center;
+	padding: 50px 0px 50px 0px;
+	border-radius: 10px;
+	border: 5px dashed #ccc;
+	color: #ccc;
+	font-family: "Helvetica Neue", Helvetica, Arial;
+	font-size: 30px;
+}
+
+label#largeFile:hover:after {
+	background: #ccc;
+	color: #fff;
+	cursor: pointer;
+}
+
+label#largeFile input#file {
+	width: 0px;
+	height: 0px;
+}
+
+#example_wrapper {
+	display: block;
+}
+
+#example_paginate {
+	float: right;
+}
+
+#example_length {
+	float: left;
+}
+
+#example_filter {
+	float: right;
+}
+
+.page-header {
+	padding-bottom: 0 !important;
+	margin: 0 !important;
+	border-bottom: 0 !important;
+}
+
+.navbar {
+	margin-bottom: 0px !important;
+}
+</style>
+</head>
+<body>
+	<div th:replace="/header :: header"></div>
+	<div class="container pb-4 ">
+		<div class="breadcrumb-wrapper">
+			<div class="container">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/home">Trang chủ</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Tài
+							khoản của tôi</li>
+					</ol>
+					<!-- End of .breadcrumb -->
+				</nav>
+			</div>
+			<!-- End of .container -->
+		</div>
+		<div class="row my-2">
+
+			<div class="col-lg-12 order-lg-12">
+				<ul class="nav nav-tabs">
+					<li class="nav-item"><a href="" data-target="#edit"
+						data-toggle="tab" class="nav-link active">Thông tin tài khoản</a></li>
+					<li class="nav-item"><a href="" data-target="#canhan"
+						data-toggle="tab" class="nav-link ">Điểm của tôi</a></li>
+					<li class="nav-item"><a href="" data-target="#history"
+						data-toggle="tab" class="nav-link">Lịch sử giao dịch</a></li>
+				</ul>
+				<div class="tab-content py-4" id="content">
+					<div class="tab-pane active" id="edit">
+						<div class="row">
+							<form enctype="multipart/form-data" style="display: contents;"
+								action="#" th:action="@{/profile/update}" th:object="${user}"
+								method="POST">
+								<div class="col-lg-5">
+									<div class="col-lg-8 order-lg-1 text-center">
+										<img
+											style="position: absolute; width: 60%; left: 0; right: 0; margin: 50px auto; text-align: center;"
+											id="image1" th:src="${user.avatar}" /> <label id="largeFile"
+											for="file"> <input type="file" id="file"
+											name="avatarimg"
+											onchange="document.getElementById('image1').src = window.URL.createObjectURL(this.files[0])" />
+										</label>
+
+									</div>
+								</div>
+								<div class="col-lg-5">
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label">Tên
+											của bạn</label>
+										<div class="col-lg-9">
+											<input class="form-control" type="text" name="firstname"
+												th:field="*{firstName}">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label">Họ
+											của bạn</label>
+										<div class="col-lg-9">
+											<input class="form-control" type="text" name="lastname"
+												th:field="*{lastName}">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label">Ngày
+											sinh</label>
+										<div class="col-lg-9">
+											<input id="dob" class="form-control" type="date"
+												name="birthday" th:field="*{dayofbirthstr}"
+												value="${user.dayofbirth}" required="required">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label">Email</label>
+										<div class="col-lg-9">
+											<p class="form-control disabled" type="email"
+												th:text="${user.email}"></p>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label">Giới
+											tính</label>
+										<div class="col-lg-9">
+											<input type="radio" name="gender" value="1" checked="checked"
+												th:text="${ 'nam'}" th:field="*{gender}"> <input
+												type="radio" name="gender" value="0" th:text="${' nữ'}"
+												th:field="*{gender}">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label ">Tài
+											khoản</label>
+										<div class="col-lg-9">
+											<p class="form-control disabled" type="text"
+												th:text="${user.name}"></p>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label">Mật
+											khẩu</label>
+										<div class="col-lg-3">
+											<p>**********</p>
+										</div>
+										<div class="col-lg-6">
+											<a href="/request-password-reset" style="color: red">
+												Thay đổi</a>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-lg-3 col-form-label form-control-label"></label>
+										<div class="col-lg-9">
+											<input type="submit" class="btn btn-primary"
+												value="Save Changes">
+										</div>
+									</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane pb-md-5" id="canhan"
+					style="margin-bottom: 140px;">
+					<div class="row">
+						<div class="col-md-6">
+							<p style="font-weight: bold;">Điểm của bạn:</p>
+							<span th:text="${user.score}+' điểm'"></span>
+						</div>
+
+						<div class="col-md-6">
+							<th:block th:if="${maxs > 0}">
+								<form action="#" th:action="@{/payment/payout}" method="GET">
+									<label for="score">Có thể đổi: </label> <select id="score"
+										name="score">
+										<option th:each="index : ${#numbers.sequence(1, maxs)}"
+											th:value="${index}" th:text="${index}+'000 điểm'"></option>
+									</select> <input type="submit" class="btn btn-primary" value="Nhận tiền">
+								</form>
+							</th:block>
+							<span>đạt tối thiểu 1000 điểm được để nhận tiền (1000 điểm
+								= 1$)</span>
+						</div>
+					</div>
+					<br>
+					<hr />
+				</div>
+				<div class="tab-pane" id="history">
+					<th:block th:if="${#lists.size(listTran) == 0}">
+						<tr id="notify" th:text="${'bạn chưa thực hiện giao dịch nào!'}">
+						</tr>
+					</th:block>
+					<th:block th:if="${#lists.size(listTran) > 0}">
+						<table id="example" class="table table-striped table-bordered"
+							style="width: 100%;">
+							<thead>
+								<tr>
+									<th>Tên giao dịch</th>
+									<th>Trạng thái</th>
+									<th>Số điểm</th>
+									<th>Thời gian</th>
+									<th>Mã giao dịch</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<th:block th:each="tran : ${listTran}">
+									<tr>
+										<td>Nhận tiền</td>
+										<td th:if="${tran.status==3}">Thành công</td>
+										<td th:if="${tran.status==4}">Thất bại</td>
+										<td th:text="${tran.score}"></td>
+										<td th:text="${tran.createTimeToString()}"></td>
+										<td th:text="${tran.id}"></td>
+									</tr>
+							</tbody>
+							
+						</table>
+					</th:block>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+
+				reader.onload = function(e) {
+					$('#blah').attr('src', e.target.result);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+	<div th:replace="/footer :: footer"></div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		th:src="@{js/cssandjs/datatables.min.js}"></script>
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+		$(document).ready(function() {
+			$('#example').DataTable();
+			document.getElementById('dob').innerHTML = [[${user.dayofbirth}]];
+		});
+		if([[${status}]]){
+			console.log("success");
+			swal("chúc mừng!", "Giao dịch thành công !", "success");
+			}
+		if([[${status}]]==false){ 
+			swal("Thông báo!", "xảy ra sự cố !", "error");
+			}
+		
+		 /*]]>*/
+	</script>
+	<script src="//unpkg.com/vue/dist/vue.js"></script>
+	<script src="//unpkg.com/element-ui@2.12.0/lib/index.js"></script>
+	<script th:src="@{/js/cssandjs/css-vars-ponyfill@2.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery-migrate.min.js}"></script>
+	<script th:src="@{/js/cssandjs/easing-1.3.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.waypoints.min.js}"></script>
+	<script th:src="@{/js/cssandjs/owl.carousel.min.js}"></script>
+	<script th:src="@{/js/cssandjs/slick.min.js}"></script>
+	<script th:src="@{/js/cssandjs/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/cssandjs/isotope.pkgd.min.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.counterup.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.nicescroll.min.js}"></script>
+	<script th:src="@{/js/cssandjs/plugins.js}"></script>
+	<script th:src="@{/js/cssandjs/popper.min.js}"></script>
+	<script th:src="@{/js/cssandjs/tippy-bundle.iife.js}"></script>
+	<script th:src="@{/js/cssandjs/main.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.character-counter.js}"></script>
+</body>
+</html>

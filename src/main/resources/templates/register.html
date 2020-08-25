@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Prince-đăng kí</title>
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+	rel="stylesheet" type="text/css" />
+<link rel="icon" type="image/png" sizes="96x96"
+	th:href="@{/images/favicon-96x96.png}">
+<link rel="manifest" th:href="@{/images/manifest.json}">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	th:content="@{/images/ms-icon-144x144.png}">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/styles/cssandjs/login.css}">
+
+</head>
+<body >
+	<img class="wave" th:src="@{/images/wave.png}">
+	<div class="container">
+		<div class="img">
+			<img
+				style="width: 150px; position: absolute; top: 1rem; left: 1.5rem;"
+				th:src="@{/images/prince.png}"> <img
+				th:src="@{/images/bg.svg}">
+		</div>
+		<div class="login-content"  >
+			<form id="registerFrom" th:object="${appUser}" method="post">
+				<img th:src="@{/images/avatar.svg}">
+				<h2 class="title">Sign up</h2>
+				<div class="input-div pass">
+					<div class="i">
+						<i class="fas fa-user"></i>
+					</div>
+					<div class="div">
+						<h5>User name</h5>
+						<input type="text" class="input" th:field="*{name}" name="name" required>
+					</div>
+				</div>
+				<div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+				<div class="input-div pass">
+					<div class="i">
+						<i class="fas fa-envelope"></i>
+					</div>
+					<div class="div">
+						<h5>email</h5>
+						<input th:field="*{email}" class="input" type="text" name="email" required>
+						
+					</div>
+				</div>
+				<div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+				<div class="input-div pass">
+					<div class="i">
+						<i class="fas fa-lock"></i>
+					</div>
+					<div class="div" th:classappend="${#fields.hasErrors('password')}?has-error">
+						<h5>Password</h5>
+						<input th:field="*{password}" class="input" type="password" name="password"
+							required>
+							
+					</div>
+				</div>
+				<div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+				<div>
+					<p style="font-size: 14px; color: red; font-style: italic;"
+						th:text=${message}></p>
+				</div>
+				<div>
+				<input type="button" href="/login" class="btn clear-btn" value="log in" />
+				<input td="register" type="submit" name="submit" class="btn register-btn" value="sign up">
+				</div>
+			</form>
+		</div>
+	</div>
+	 <script type="text/javascript" th:src="@{/js/cssandjs/login.js}"></script>
+</body>
+</html>

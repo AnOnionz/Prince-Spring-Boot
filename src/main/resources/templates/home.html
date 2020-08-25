@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Home</title>
+<link rel="icon" type="image/png" sizes="96x96"
+	th:href="@{/images/favicon-96x96.png}">
+<link rel="manifest" th:href="@{/images/manifest.json}">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	th:content="@{/images/ms-icon-144x144.png}">
+<meta name="theme-color" content="#ffffff">
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,500i,700,700i,900"
+	rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" th:href="@{/styles/cssandjs/tippy.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/iconfont.css}">
+<link rel="stylesheet" 
+	th:href="@{/styles/cssandjs/luckywheel-notification.css}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
+<link rel="stylesheet" th:href="@{/styles/cssandjs/owl.carousel.min.css}">
+<link rel="stylesheet" 
+	th:href="@{/styles/cssandjs/magnific-popup.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/animate.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/style.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/header.css}">
+</head>
+<body>
+	<div class="main-content">
+		<div th:replace="/header :: header"></div>
+			<div class="recent-news-wrapper section-gap p-t-xs-15 p-t-sm-60">
+			<div class="container">
+			<th:block th:if="${#lists.size(recentPosts) > 0}">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="axil-latest-post">
+							<div class="media post-block m-b-xs-20">
+								<figure class="fig-container">
+									<a th:href="@{/post/view/{id}(id=${recentPosts[0].id})}"><img 
+										th:src="${recentPosts[0].image}" alt="latest post"></a>
+									<div class="post-cat-group m-b-xs-10">
+										<a class="post-cat cat-btn bg-color-blue-one" th:text="${recentPosts[0].category.name}"></a>
+									</div>
+								</figure>
+								<div class="media-body">
+									<h3 
+										class="axil-post-title hover-line hover-line"
+										style="word-wrap: break-word; cursor: default;">
+										<a  th:href="@{/post/view/{id}(id=${recentPosts[0].id})}" th:utext="${recentPosts[0].title}"></a>
+									</h3>
+									<div class="post-metas">
+										<ul class="list-inline">
+											<li>Đăng bởi <a class="post-author" th:text="${recentPosts[0].author.name}"
+												style="font-weight: bold;"></a></li>
+											<li><i class="dot">.</i><span th:utext="${recentPosts[0].startDate}"></span></li>
+											<li> <span th:text="${recentPosts[0].visiter}"></span> <i class="fas fa-eye"></i></li>
+
+										</ul>
+									</div>
+								</div>
+							</div>
+							<!-- End of .post-block -->
+						</div>
+						<!-- End of .latest-post -->
+					</div>
+					<!-- End of .col-lg-6 -->
+					<div class="col-lg-6">
+						<div class="axil-recent-news">
+							<div class="section-title d-flex m-b-xs-30">
+								<h2 class="axil-title">Mới nhất</h2>
+							</div>
+							<!-- End of .section-title -->
+							<div class="axil-content">
+								<th:block th:if="${#lists.size(recentPosts) > 1}" th:each="post,index : ${recentPosts}">
+								<div class="media post-block m-b-xs-30" th:if="${index != 0}">
+									<a th:href="@{/post/view/{id}(id=${post.id})}" class="align-self-center"><img
+										height="100px" style="object-fit: fill;"
+										class=" m-r-xs-30" th:src="${post.image}"
+										alt="Ảnh bìa"></a>
+									<div class="media-body">
+										<div class="post-cat-group m-b-xs-10">
+											<a th:href="@{/post/view/{id}(id=${post.id})}"
+												class="post-cat cat-btn bg-color-purple-one"><span th:text="${post.category.name}"></span></a>
+										</div>
+										<h3 
+											class="axil-post-title hover-line hover-line"
+											style="word-wrap: break-word; cursor: default;">
+											<a th:text="${post.title}"></a>
+										</h3>
+										<div class="post-metas">
+											<ul class="list-inline">
+												<li>Đăng bởi <a class="font-weight-bold" th:text="${post.author.name}"></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								</th:block>
+								
+								<div class="col-5 mx-auto" th:if="${#lists.size(recentPosts) < 2}" th:text="${'Chưa có quảng cáo mới'}"></div>
+								
+								
+							</div>
+							<!-- End of .content -->
+						</div>
+						<!-- End of .recent-news -->
+					</div>
+					<!-- End of .col-lg-6 -->
+
+				</div>
+				</th:block>
+				<!-- End of .row -->
+			</div>
+			<!-- End of .container -->
+		</div>		
+		<!-- End of .axil-video-posts -->
+		<div class="random-posts section-gap">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="add-container m-b-xs-60">
+							<a href="#"><img
+								th:src="@{/images/clientbanner.jpg}" alt="add one"
+								class="img-fluid"></a>
+						</div>
+						<main class="axil-content">
+						</main>
+						<!-- End of .axil-content -->
+					</div>
+					<!-- End of .col-lg-8 -->
+					<div class="col-lg-4">
+						<aside class="post-sidebar">
+							<div class="add-block-widget m-b-xs-40">
+								<a href="#"><img
+									th:src="@{/images/clientbanner2.jpg}"
+									alt="sidebar add" class="img-fluid"></a>
+							</div>
+							<div
+								class="newsletter-widget weekly-newsletter bg-grey-light-three m-b-xs-40">
+								<div class="newsletter-content">
+									<div class="newsletter-icon">
+										<i class="fas fa-paper-plane"></i>
+									</div>
+									<div class="section-title">
+										<h3 class="axil-title">Subscribe To Our Weekly Newsletter</h3>
+										<p class="mid m-t-xs-10 m-b-xs-20">No spam, notifications
+											only about new products, updates.</p>
+									</div>
+									<!-- End of .section-title -->
+									<div class="subscription-form-wrapper">
+										<form action="#" class="subscription-form">
+											<div class="form-group form-group-small m-b-xs-20">
+												<label for="subscription-email-2">Enter Email
+													Address</label> <input type="text" name="subscription-email-2"
+													id="subscription-email-2">
+											</div>
+											<div class="m-b-xs-0">
+												<button class="btn btn-primary btn-small">SUBSCRIBE</button>
+											</div>
+										</form>
+										<!-- End of .subscription-form -->
+									</div>
+									<!-- End of .subscription-form-wrapper -->
+								</div>
+								<!-- End of .newsletter-content -->
+							</div>
+							<!-- End of  .newsletter-widget -->
+		
+							<!-- End of .category-widget -->
+							<!-- End of .sidebar-social-share -->
+							<div class="post-widget sidebar-post-widget m-b-xs-40">
+								<ul class="nav nav-pills row no-gutters">
+									<li class="nav-item col"><a class="nav-link active"
+										data-toggle="pill" href="#recent-post">Recent</a></li>
+									<li class="nav-item col"><a class="nav-link"
+										data-toggle="pill" href="#popular-post">Popular</a></li>
+									<li class="nav-item col"><a class="nav-link"
+										data-toggle="pill" href="#comments">Comments</a></li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane fade show active" id="recent-post">
+										<div class="axil-content">
+											<div class="media post-block post-block__small">
+												<a href="#" class="align-self-center"><img
+													class="m-r-xs-30"
+													src="/images/small-media-1.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<div class="post-cat-group">
+														<a href="#"
+															class="post-cat color-blue-three">BEAUTY,</a> <a
+															href="#"
+															class="post-cat color-yellow-one">TRADE,</a> <a
+															href="#"
+															class="post-cat color-red-one">MUSIC</a>
+													</div>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">Stocking Your
+															Restaurant Kitchen Finding Reliable Sellers</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Amachea Jajah</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+											<div class="media post-block post-block__small">
+												<a href="#" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-2.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="post-format-standard.jsp"
+														class="post-cat color-green-three">TRAVEL</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">Trip To Iqaluit In
+															Nunavut A Canadian Arctic City</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Xu Jianhong</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+											<div class="media post-block post-block__small">
+												<a href="3" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-3.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="post-format-standard.jsp"
+														class="post-cat color-red-two">SPORTS</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">Thousands Now
+															Adware Removal Who Never Thought They Could</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Ahmad Nazeri</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+											<div class="media post-block post-block__small">
+												<a href="#" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-4.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="post-format-standard.jsp"
+														class="post-cat color-blue-one">FASHION</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">To Keep Makeup
+															Looking Fresh Take A Powder</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Sergio Pliego</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+										</div>
+										<!-- End of .content -->
+									</div>
+									<!-- End of .tab-pane -->
+									<div class="tab-pane fade" id="popular-post">
+										<div class="axil-content">
+											<div class="media post-block post-block__small">
+												<a href="#" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-3.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="post-format-standard.jsp"
+														class="post-cat color-blue-one">FASHION</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">To Keep Makeup
+															Looking Fresh Take A Powder</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Sergio Pliego</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+											<div class="media post-block post-block__small">
+												<a href="#" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-2.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="#post-format-standard.jsp"
+														class="post-cat color-blue-three">BEAUTY</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="post-format-standard.jsp">Stocking Your
+															Restaurant Kitchen Finding Reliable Sellers</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Amachea Jajah</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+											<div class="media post-block post-block__small">
+												<a href="#" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-1.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="post-format-standard.jsp"
+														class="post-cat color-green-three">TRAVEL</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">Trip To Iqaluit In
+															Nunavut A Canadian Arctic City</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Xu Jianhong</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+											<div class="media post-block post-block__small">
+												<a href="post-format-standard.jsp" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-4.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="post-format-standard.jsp"
+														class="post-cat color-red-two">SPORTS</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">RCB vs RR, IPL
+															2019: Bangalore, Rajasthan desperate for win</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Ahmad Nazeri</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+										</div>
+										<!-- End of .content -->
+									</div>
+									<!-- End of .tab-pane -->
+									<div class="tab-pane fade" id="comments">
+										<div class="axil-content">
+											<div class="media post-block post-block__small">
+												<a href="#" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-2.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="post-format-standard.jsp"
+														class="post-cat color-red-two">SPORTS</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">RCB vs RR, IPL
+															2019: Bangalore, Rajasthan desperate for win</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Ahmad Nazeri</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+											<div class="media post-block post-block__small">
+												<a href="#" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-1.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="post-format-standard.jsp"
+														class="post-cat color-blue-three">BEAUTY</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">Stocking Your
+															Restaurant Kitchen Finding Reliable Sellers</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Amachea Jajah</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+											<div class="media post-block post-block__small">
+												<a href="#" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-3.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="post-format-standard.jsp"
+														class="post-cat color-green-three">TRAVEL</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">Trip To Iqaluit In
+															Nunavut A Canadian Arctic City</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="post-format-standard.jsp">Xu
+																	Jianhong</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+											<div class="media post-block post-block__small">
+												<a href="#" class="align-self-center"><img
+													class=" m-r-xs-30"
+													src="/images/small-media-4.jpg"
+													alt="media image"></a>
+												<div class="media-body">
+													<a href="post-format-standard.jsp"
+														class="post-cat color-blue-one">FASHION</a>
+													<h4 class="axil-post-title hover-line hover-line">
+														<a href="#">To Keep Makeup
+															Looking Fresh Take A Powder</a>
+													</h4>
+													<div class="post-metas">
+														<ul class="list-inline">
+															<li>By <a href="#">Sergio Pliego</a></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<!-- End of .post-block -->
+										</div>
+										<!-- End of .content -->
+									</div>
+									<!-- End of .tab-pane -->
+								</div>
+								<!-- End of .tab-content -->
+							</div>
+							<!-- End of .sidebar-post-widget -->
+							<div class="instagram-widget m-b-xs-40">
+								<div class="widget-title">
+									<h3>Instagram</h3>
+								</div>
+								<div class="axil-content">
+									<ul class="instagram-post-list-wrapper">
+										<li class="instagram-post-list perfect-square"><a
+											href="#" class="list-inner"
+											style="background-image: url(/images/instagram-post-1.jpg)">
+												<div class="post-info-wrapper overlay">
+													<div class="post-info">
+														<i class="feather icon-heart"></i> 20K+
+													</div>
+													<!-- End of .post-info -->
+													<div class="post-info">
+														<i class="feather icon-message-square"></i> 200+
+													</div>
+													<!-- End of .post-info -->
+												</div> <!-- End of .post-info-wrapper overlay -->
+										</a></li>
+										<!-- End of .instagram-post-list -->
+										<li class="instagram-post-list perfect-square"><a
+											href="#" class="list-inner"
+											style="background-image: url(/images/instagram-post-2.jpg)">
+												<div class="post-info-wrapper overlay">
+													<div class="post-info">
+														<i class="fas fa-heart"></i> 20K+
+													</div>
+													<!-- End of .post-info -->
+													<div class="post-info">
+														<i class="feather icon-message-square"></i> 200+
+													</div>
+													<!-- End of .post-info -->
+												</div> <!-- End of .post-info-wrapper overlay -->
+										</a></li>
+										<!-- End of .instagram-post-list -->
+										<li class="instagram-post-list perfect-square"><a
+											href="#" class="list-inner"
+											style="background-image: url(/images/instagram-post-3.jpg)">
+												<div class="post-info-wrapper overlay">
+													<div class="post-info">
+														<i class="fas fa-heart"></i> 20K+
+													</div>
+													<!-- End of .post-info -->
+													<div class="post-info">
+														<i class="fas fa-envelope"></i> 200+
+													</div>
+													<!-- End of .post-info -->
+												</div> <!-- End of .post-info-wrapper overlay -->
+										</a></li>
+										<!-- End of .instagram-post-list -->
+										<li class="instagram-post-list perfect-square"><a
+											href="#" class="list-inner"
+											style="background-image: url(/images/instagram-post-4.jpg)">
+												<div class="post-info-wrapper overlay">
+													<div class="post-info">
+														<i class="fas fa-heart"></i>  20K+
+													</div>
+													<!-- End of .post-info -->
+													<div class="post-info">
+														<i class="fas fa-envelope"></i> 200+
+													</div>
+													<!-- End of .post-info -->
+												</div> <!-- End of .post-info-wrapper overlay -->
+										</a></li>
+										<!-- End of .instagram-post-list -->
+										<li class="instagram-post-list perfect-square"><a
+											href="#" class="list-inner"
+											style="background-image: url(/images/instagram-post-5.jpg)">
+												<div class="post-info-wrapper overlay">
+													<div class="post-info">
+														<i class="fas fa-heart"></i>  20K+
+													</div>
+													<!-- End of .post-info -->
+													<div class="post-info">
+														<i class="fas fa-envelope"></i> 200+
+													</div>
+													<!-- End of .post-info -->
+												</div> <!-- End of .post-info-wrapper overlay -->
+										</a></li>
+										<!-- End of .instagram-post-list -->
+										<li class="instagram-post-list perfect-square"><a
+											href="#" class="list-inner"
+											style="background-image: url(/images/instagram-post-6.jpg)">
+												<div class="post-info-wrapper overlay">
+													<div class="post-info">
+														<i class="fas fa-heart"></i>  20K+
+													</div>
+													<!-- End of .post-info -->
+													<div class="post-info">
+														<i class="fas fa-envelope"></i> 200+
+													</div>
+													<!-- End of .post-info -->
+												</div> <!-- End of .post-info-wrapper overlay -->
+										</a></li>
+										<!-- End of .instagram-post-list -->
+									</ul>
+									<!-- End of .instagram-post-list-wrapper -->
+									<div class="m-t-xs-20">
+										<button class="btn btn-primary btn-small">FOLLOW US</button>
+									</div>
+								</div>
+								<!-- End of .content -->
+							</div>
+							<!-- End of .instagram-widget -->
+						</aside>
+						<!-- End of .post-sidebar -->
+					</div>
+					<!-- End of .col-lg-4 -->
+				</div>
+				<!-- End of .row -->
+			</div>
+			<!-- End of .container -->
+		</div>
+		<div th:replace="/footer :: footer"></div>
+	</div>
+
+	<script src="//unpkg.com/vue/dist/vue.js"></script>
+	<script src="//unpkg.com/element-ui@2.12.0/lib/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+	<script th:src="@{/js/cssandjs/jquery.min.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery-migrate.min.js}"></script>
+	<script th:src="@{/js/cssandjs/easing-1.3.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.waypoints.min.js}"></script>
+	<script th:src="@{/js/cssandjs/owl.carousel.min.js}"></script>
+	<script th:src="@{/js/cssandjs/slick.min.js}"></script>
+	<script th:src="@{/js/cssandjs/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/cssandjs/isotope.pkgd.min.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.counterup.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.nicescroll.min.js}"></script>
+	<script th:src="@{/js/cssandjs/plugins.js}"></script>
+	<script th:src="@{/js/cssandjs/popper.min.js}"></script>
+	<script th:src="@{/js/cssandjs/tippy-bundle.iife.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery-3.4.1.min.js}"></script>
+	<script th:src="@{/js/cssandjs/main.js}"></script>
+</body>
+</html>

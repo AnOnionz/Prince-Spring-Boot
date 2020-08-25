@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:utext="'Prince - ' + ${view.title}"></title>
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+	rel="stylesheet" type="text/css" />
+<link rel="icon" type="image/png" sizes="96x96"
+	th:href="@{/images/favicon-96x96.png}">
+<link rel="manifest" th:href="@{/images/manifest.json}">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage"
+	th:content="@{/images/ms-icon-144x144.png}">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" th:href="@{/styles/cssandjs/tippy.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/iconfont.css}">
+<link rel="stylesheet" 
+	th:href="@{/styles/cssandjs/luckywheel-notification.css}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" >
+<link rel="stylesheet" th:href="@{/styles/cssandjs/owl.carousel.min.css}">
+<link rel="stylesheet" 
+	th:href="@{/styles/cssandjs/magnific-popup.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/animate.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/style.css}">
+<link rel="stylesheet" th:href="@{/styles/cssandjs/header.css}">
+</head>
+</head>
+<body>
+	<div th:replace="/header :: header"></div>
+	<th:block th:switch="${view}">
+	<th:block th:case="'NoData'">
+		<div class="row">
+			<div class="col-12 m-t-xs-100" style="text-align: center;">Quảng
+				cáo không tồn tại</div>
+		</div>
+	</th:block>
+	<th:block th:case="*" th:object="${view}">
+		<!-- Main contents
+	================================================ -->
+		<div class="main-content">
+
+			<div class="breadcrumb-wrapper">
+				<div class="container">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a
+								href="/home">Trang chủ</a></li>
+							<li class="breadcrumb-item active" aria-current="page" th:utext="${view.getTitleLimited(6)}"></li>
+						</ol>
+						<!-- End of .breadcrumb -->
+					</nav>
+				</div>
+				<!-- End of .container -->
+			</div>
+			<!-- End of .breadcrumb-container -->
+				<!-- Banner starts -->
+				<section class="banner banner__single-post banner__standard">
+					<div class="container">
+						<div class="row align-items-center">
+							<div class="col-lg-6">
+								<div class="post-title-wrapper">
+									<div class="btn-group">
+										<a class="cat-btn bg-color-blue-one" th:utext="${view.category.name}"></a>
+									</div>
+									<h2 class="m-t-xs-20 m-b-xs-0 axil-post-title hover-line" th:utext="${view.title}"></h2>
+									<div class="post-metas banner-post-metas m-t-xs-20">
+										<ul class="list-inline">
+											<li><a class="post-author post-author-with-img">
+											<img th:if="${view.author.avatar == null}" th:src="@{/images/avatar.png}" alt="author" >
+											<img th:if="${view.author.avatar != null}" th:src="${view.author.avatar}" alt="author" > <span th:utext="'Đăng bởi: '+${view.author.name}"></span></a></li>
+											<li><a th:utext="${view.visiter}+' Lượt xem'"><i class="feather icon-activity"></i></a></li>
+										</ul>
+									</div>
+									<!-- End of .post-metas -->
+								</div>
+								<!-- End of .post-title-wrapper -->
+							</div>
+							<!-- End of .col-lg-6 -->
+
+							<div class="col-lg-6">
+								<img th:src="${view.image}" alt="ảnh bìa" class="img-fluid rounded"
+									width="600" height="600">
+							</div>
+						</div>
+						<!-- End of .row -->
+					</div>
+					<!-- End of .container -->
+				</section>
+				<!-- End of .banner -->
+
+				<!-- post-single-wrapper starts -->
+				<div class="post-single-wrapper p-t-xs-60 p-b-xs-40 ">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12">
+								<main class="site-main">
+									<article class="post-details">
+										<div class="single-blog-wrapper">
+											<!-- End of .social-share -->
+											<h3 th:utext="${view.subTitle1}"></h3>
+											<figure>
+												<img class="rounded" th:if="${view.image1!=null}" th:src="${view.image1}" alt="img"
+													style="margin: 0 11rem; width: 80%;">
+												<figcaption th:text="${view.figure1!=null ? view.figure1 : ''}" style="font-size: 1.4rem; text-align: center;"></figcaption>
+											</figure>
+
+											<p th:utext="*{content1}"></p>
+
+											<h3 th:utext="*{subTitle2}"></h3>
+
+											<figure>
+												<img class="rounded" th:if="${view.image2!=null}" th:src="${view.image2}" alt="img"
+													style="margin: 0 11rem; width: 80%;">
+												<figcaption th:utext="*{figure2}" style="font-size: 1.4rem; text-align: center;"></figcaption>
+											</figure>
+											<!-- End of .gallery -->
+
+											<p th:text="*{content2}"></p>
+
+		</div>
+		<th:block th:if="${username!=view.author.name && clicked =='false'}">
+			<input th:class ="viewId" type="hidden" th:value="${view.id}"/>
+			<div class="row" >
+				<div class="contai mb-5 " id="1">
+					<span
+						class="pulse-button" id="recivePost" th:utext="${view.score} + ' điểm'"></span>
+				</div>
+				<div class='contai mb-5' id="2">
+					<span class="pulse-button" id="time"></span>
+
+				</div>
+			</div>
+		</th:block>
+		<th:block th:if="${clicked =='true'}">
+			<div><quote style="background: bisque;" >Bạn đã nhận điểm từ quảng cáo này </quote></div>
+				
+			
+		</th:block>
+		</article>
+
+		<hr class="m-t-xs-50 m-b-xs-30">
+
+		<div class="ui huge comments" id="commentbox">
+
+			<h2 class="ui dividing header">Bình luận</h2>
+			<form class="ui reply form">
+				<input type="hidden" th:value="${view.id}" id="idView"> 
+				<div class="field">
+					<textarea id="content" placeholder='Hãy là người đầu tiên bình luận...'></textarea>
+				</div>
+				<div class="ui primary submit labeled icon button" id="addcmt">
+					<i class="icon edit"></i> Gửi
+				</div>
+			</form>
+			<th:block th:each=" item : ${listCMT}">
+				<div class="comment" id="comment${item.comment_id}">
+					<a class="avatar"> <img th:src="${item.avatar}">
+					</a>
+					<div class="content">
+						<a class="author" th:text="${item.getName()}"></a>
+						<div class="metadata">
+							<span class="date" th:text="${item.getStringTime()}"></span>
+						</div>
+						<div class="text">
+							<p th:text="${item.content}"></p>
+						</div>
+						<div class="actions">
+							<a class="reply" id="replycmt${item.comment_id}">Trả lời</a>
+							<th:block th:if="${item.userId == userId}">
+								<a class="delete" id="delcmt${item.comment_id}">xóa</a>
+							</th:block>
+						</div>
+						<form class="ui reply form d-none" id="form${item.comment_id}">
+							<input type="hidden" th:value="${view.post_id}" id="idView">
+							<div class="field">
+								<textarea id="content${item.comment_id}"></textarea>
+							</div>
+							<div class="ui primary submit labeled icon button"
+								id="sendcmt${item.comment_id}">
+								<i class="icon edit"></i> Gửi
+							</div>
+							<div class="ui primary submit labeled icon button"
+								id="cancelcmt${item.comment_id}">
+								<i class="icon cancel"></i> hủy
+							</div>
+						</form>
+					</div>
+		</div>
+
+		<!-- End of .comment-box -->
+
+		<!-- End of .post-navigation -->
+		</main>
+		<!-- End of main -->
+		</div>
+		<!--End of .col-auto  -->
+
+
+		<!-- footer starts -->
+
+		</div>
+
+		<!-- End of footer -->
+		<!-- End of .main-content -->
+		</div>
+		</div>
+		<div th:replace="/footer :: footer"></div>
+		</div>
+	</th:block>
+	<script th:inline="javascript">
+				/*<![CDATA[*/
+        $(document).ready(function () {
+        	if([[${clicked=='false'}]]){
+        	var watch = {
+        		    "id" : [[${view.id}]] ,
+        		    }
+            $("#recivePost").click(function(){
+                $.ajax({
+                    url:'/view/watched',
+                   dataType: 'json',
+                    type: 'POST',
+                    data: watch,
+                    success: function (data) {
+                    	document.getElementById("1").style.display = "none";                   	
+                    	swal("Chúc mừng!", "Bạn đã nhận được [[${view.score}]] điểm", "success");                              	                    	                     	
+                    },
+                    error: function (e) {
+                        console.log(e.message);
+                    }
+                });
+        	     	
+            });
+        	}
+        });
+        /*]]>*/
+        </script>
+	<script th:src="@{/js/cssandjs/post.js}"></script>
+	<script src="//unpkg.com/vue/dist/vue.js"></script>
+	<script src="//unpkg.com/element-ui@2.12.0/lib/index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+	<script th:src="@{/js/cssandjs/jquery.min.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery-migrate.min.js}"></script>
+	<script th:src="@{/js/cssandjs/easing-1.3.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.waypoints.min.js}"></script>
+	<script th:src="@{/js/cssandjs/owl.carousel.min.js}"></script>
+	<script th:src="@{/js/cssandjs/slick.min.js}"></script>
+	<script th:src="@{/js/cssandjs/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/cssandjs/isotope.pkgd.min.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.counterup.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.magnific-popup.min.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery.nicescroll.min.js}"></script>
+	<script th:src="@{/js/cssandjs/plugins.js}"></script>
+	<script th:src="@{/js/cssandjs/popper.min.js}"></script>
+	<script th:src="@{/js/cssandjs/tippy-bundle.iife.js}"></script>
+	<script th:src="@{/js/cssandjs/jquery-3.4.1.min.js}"></script>
+	<script th:src="@{/js/cssandjs/main.js}"></script>
+</body>
+</html>
